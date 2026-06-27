@@ -2,6 +2,10 @@
 
 set -x
 
+if [[ ${target_platform} = osx* ]]; then
+    export CXX=clang++
+fi
+
 # We do want -O3 (the default CXXFLAGS imposes -O2)
 export CPPFLAGS="${CPPFLAGS} -I${PREFIX}/include"
 export CXXFLAGS="${CXXFLAGS} -I${PREFIX}/include -std=gnu++23 -O3"
@@ -77,7 +81,7 @@ fi
 
 echo "[all] Starting make"
 
-make -j 3
+make -j 3 V=1
 
 # Test
 #LD_LIBRARY_PATH=${PREFIX}/lib make check
